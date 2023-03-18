@@ -465,7 +465,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->signup_panel->Controls->Add(this->sign_up_insuranc_no_textbox);
 			this->signup_panel->Controls->Add(this->sign_up_age_textbox);
 			this->signup_panel->Controls->Add(this->sign_up_first_name_textbox);
-			this->signup_panel->Location = System::Drawing::Point(0, 450);
+			this->signup_panel->Location = System::Drawing::Point(0, 0);
 			this->signup_panel->Name = L"signup_panel";
 			this->signup_panel->Size = System::Drawing::Size(420, 450);
 			this->signup_panel->TabIndex = 6;
@@ -961,7 +961,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->main_panel->Controls->Add(this->main_panel_admin_button);
 			this->main_panel->Controls->Add(this->main_panel_doctor_button);
 			this->main_panel->Controls->Add(this->main_panel_patient_button);
-			this->main_panel->Location = System::Drawing::Point(3, 2);
+			this->main_panel->Location = System::Drawing::Point(424, 28);
 			this->main_panel->Name = L"main_panel";
 			this->main_panel->Size = System::Drawing::Size(420, 450);
 			this->main_panel->TabIndex = 13;
@@ -1040,7 +1040,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 		}
 #pragma endregion
 	public:
-		User^ user;
+		Patient^ user;
 
 		private: System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -1062,7 +1062,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 				command.Parameters->AddWithValue("@pwd", password);
 				SqlDataReader^ reader = command.ExecuteReader();
 				if (reader->Read()) {
-					user = gcnew User;
+					user = gcnew Patient;
 					user->id = reader->GetString(0);
 					user->password = reader->GetString(1);
 					user->first_name = reader->GetString(2);
@@ -1071,23 +1071,23 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 					user->security_q = reader->GetString(5);
 					user->age = reader->GetString(6);
 					user->phone_no = reader->GetString(7);
-					user->role = reader->GetString(8);
+					//user->role = reader->GetString(8);
 					
-					if (user->role == "0")
-					{
-						login_panel->Visible = false; // show the panel
-						patient_panel->Visible = true; // hide the panel
-					}
-					else if (user->role == "1")
-					{
-						login_panel->Visible = false; // show the panel
-						doctor_panel->Visible = true; // hide the panel
-					}
-					else if (user->role == "2")
-					{
-						login_panel->Visible = false; // show the panel
-						admin_panel->Visible = true; // hide the panel
-					}
+					//if (user->role == "0")
+					//{
+					//	login_panel->Visible = false; // show the panel
+					//	patient_panel->Visible = true; // hide the panel
+					//}
+					//else if (user->role == "1")
+					//{
+					//	login_panel->Visible = false; // show the panel
+					//	doctor_panel->Visible = true; // hide the panel
+					//}
+					//else if (user->role == "2")
+					//{
+					//	login_panel->Visible = false; // show the panel
+					//	admin_panel->Visible = true; // hide the panel
+					//}
 					login_panel_id_textbox->Text = "";
 					login_panel_password_textbox->Text = "";
 					
@@ -1148,7 +1148,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 				command.Parameters->AddWithValue("@password", password);
 				command.Parameters->AddWithValue("@security_q", secutity_q);
 				command.ExecuteNonQuery();
-				user = gcnew User;
+				user = gcnew Patient;
 				user->id = id;
 				user->first_name = first_name;
 				user->last_name = last_name;
@@ -1296,7 +1296,7 @@ private: System::Void view_detail_panel_change_button_Click(System::Object^ send
 		command.Parameters->AddWithValue("@password", password);
 		command.Parameters->AddWithValue("@security_q", secutity_q);
 		command.ExecuteNonQuery();
-		user = gcnew User;
+		user = gcnew Patient;
 		user->id = id;
 		user->first_name = first_name;
 		user->last_name = last_name;
