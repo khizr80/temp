@@ -465,6 +465,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->signup_panel->Controls->Add(this->sign_up_insuranc_no_textbox);
 			this->signup_panel->Controls->Add(this->sign_up_age_textbox);
 			this->signup_panel->Controls->Add(this->sign_up_first_name_textbox);
+			this->signup_panel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->signup_panel->Location = System::Drawing::Point(0, 0);
 			this->signup_panel->Name = L"signup_panel";
 			this->signup_panel->Size = System::Drawing::Size(420, 450);
@@ -984,6 +985,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->main_panel_admin_button->TabIndex = 10;
 			this->main_panel_admin_button->Text = L"Login as admin";
 			this->main_panel_admin_button->UseVisualStyleBackColor = true;
+			this->main_panel_admin_button->Click += gcnew System::EventHandler(this, &MyForm::main_panel_admin_button_Click);
 			// 
 			// main_panel_doctor_button
 			// 
@@ -993,6 +995,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->main_panel_doctor_button->TabIndex = 9;
 			this->main_panel_doctor_button->Text = L"Login as doctor";
 			this->main_panel_doctor_button->UseVisualStyleBackColor = true;
+			this->main_panel_doctor_button->Click += gcnew System::EventHandler(this, &MyForm::main_panel_doctor_button_Click);
 			// 
 			// main_panel_patient_button
 			// 
@@ -1342,6 +1345,9 @@ private: System::Void complain_panel_back_button_Click(System::Object^ sender, S
 	complain_panel->Visible = false; // show the panel
 	patient_panel->Visible = true; // hide the panel
 }
+	   bool ismain_panel_patient_button = false;
+	   bool ismain_panel_admin_button = false;
+	   bool ismain_panel_doctor_button = false;
 private: System::Void main_panel_exit_button_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	this->Close();
@@ -1350,6 +1356,19 @@ private: System::Void main_panel_patient_button_Click(System::Object^ sender, Sy
 {
 	main_panel->Visible = false;
 	login_panel->Visible = true;
+	ismain_panel_patient_button = true;
+}
+private: System::Void main_panel_doctor_button_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	main_panel->Visible = false;
+	login_panel->Visible = true;
+	ismain_panel_doctor_button = true;
+}
+private: System::Void main_panel_admin_button_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	main_panel->Visible = false;
+	login_panel->Visible = true;
+	ismain_panel_admin_button = true;
 }
 };
 }
