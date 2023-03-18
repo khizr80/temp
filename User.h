@@ -21,3 +21,13 @@ public ref class Patient : public User
 public:
 	String^ insurance_no;
 };
+public ref class doctor : public User
+{
+public:
+	String^ specialization;
+};
+public ref class admin : public User
+{
+public:
+	String^ revenue;
+};
