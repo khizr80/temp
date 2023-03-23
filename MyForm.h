@@ -1,4 +1,7 @@
 #include"User.h"
+#include"patient.h"
+#include"doctor.h"
+#include"admin.h"
 //#include <windows.h>
 
 //#include "../../../../Program Files (x86)/Reference Assemblies/Microsoft/Framework/.NETFramework/v4.7.2/System.Data.dll"
