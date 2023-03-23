@@ -1050,64 +1050,58 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 
 		private: System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e)
 		{
+
 			String^ id = this->login_panel_id_textbox->Text;
 			String^ password = this->login_panel_password_textbox->Text;
-			if (id->Length == 0 || password->Length == 0) {
-				MessageBox::Show("Please enter email and password",
-					"Email or Password Empty", MessageBoxButtons::OK);
-				return;
-			}
+			//if (id->Length == 0 || password->Length == 0) {
+			//	MessageBox::Show("Please enter email and password",
+			//		"Email or Password Empty", MessageBoxButtons::OK);
+			//	return;
+			//}
 
-			try {
-				String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True;";
-				SqlConnection sqlConn(connString);
-				sqlConn.Open();
-				String^ sqlQuery = "SELECT * FROM [user] WHERE id=@no AND password=@pwd";
-				SqlCommand command(sqlQuery, % sqlConn);
-				command.Parameters->AddWithValue("@no", id);
-				command.Parameters->AddWithValue("@pwd", password);
-				SqlDataReader^ reader = command.ExecuteReader();
-				if (reader->Read()) {
-					user = gcnew Patient;
-					user->id = reader->GetString(0);
-					user->password = reader->GetString(1);
-					user->first_name = reader->GetString(2);
-					user->last_name = reader->GetString(3);
-					user->insurance_no = reader->GetString(4);
-					user->security_q = reader->GetString(5);
-					user->age = reader->GetString(6);
-					user->phone_no = reader->GetString(7);
-					//user->role = reader->GetString(8);
-					
-					//if (user->role == "0")
-					//{
-					//	login_panel->Visible = false; // show the panel
-					//	patient_panel->Visible = true; // hide the panel
-					//}
-					//else if (user->role == "1")
-					//{
-					//	login_panel->Visible = false; // show the panel
-					//	doctor_panel->Visible = true; // hide the panel
-					//}
-					//else if (user->role == "2")
-					//{
-					//	login_panel->Visible = false; // show the panel
-					//	admin_panel->Visible = true; // hide the panel
-					//}
-					login_panel_id_textbox->Text = "";
-					login_panel_password_textbox->Text = "";
-					
-					//MessageBox::Show("" + user->first_name + user->last_name + user->id + user->password + user->insurance_no
-						//+ user->security_q + user->age + user->phone_no + user->role, "message", MessageBoxButtons::OK);
-				}
-				else {
-					MessageBox::Show("Email or password is incorrect",
-						"Email or Password Error", MessageBoxButtons::OK);
-				}
+			//try {
+			//	String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True;";
+			//	SqlConnection sqlConn(connString);
+			//	sqlConn.Open();
+			//	String^ sqlQuery = "SELECT * FROM [user] WHERE id=@no AND password=@pwd";
+			//	SqlCommand command(sqlQuery, % sqlConn);
+			//	command.Parameters->AddWithValue("@no", id);
+			//	command.Parameters->AddWithValue("@pwd", password);
+			//	SqlDataReader^ reader = command.ExecuteReader();
+			//	if (reader->Read()) {
+			//		user = gcnew Patient;
+			//		user->id = reader->GetString(0);
+			//		user->password = reader->GetString(1);
+			//		user->first_name = reader->GetString(2);
+			//		user->last_name = reader->GetString(3);
+			//		user->insurance_no = reader->GetString(4);
+			//		user->security_q = reader->GetString(5);
+			//		user->age = reader->GetString(6);
+			//		user->phone_no = reader->GetString(7);
+			//		login_panel_id_textbox->Text = "";
+			//		login_panel_password_textbox->Text = "";
+			//		
+			//		//MessageBox::Show("" + user->first_name + user->last_name + user->id + user->password + user->insurance_no
+			//			//+ user->security_q + user->age + user->phone_no + user->role, "message", MessageBoxButtons::OK);
+			//	}
+			//	else {
+			//		MessageBox::Show("Email or password is incorrect",
+			//			"Email or Password Error", MessageBoxButtons::OK);
+			//	}
+			//}
+			//catch (Exception^ e) {
+			//	MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
+			//}
+			Patient x;
+			bool c=x.login(id,password);
+			if (c == 1)
+			{
+				login_panel->Visible = false; // show the panel
+				patient_panel->Visible = true; // hide the panel
 			}
-			catch (Exception^ e) {
-				MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
-			}
+			login_panel_id_textbox->Text = "";
+			login_panel_password_textbox->Text = "";
+
 		}
 
 		private: System::Void signup_button_Click(System::Object^ sender, System::EventArgs^ e)
