@@ -126,9 +126,12 @@
     <ClCompile Include="Program.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="admin.h" />
+    <ClInclude Include="doctor.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="patient.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>

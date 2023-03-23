@@ -26,5 +26,14 @@
     <ClInclude Include="User.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="patient.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="doctor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="admin.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

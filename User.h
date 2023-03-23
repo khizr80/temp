@@ -13,10 +13,10 @@ public:
 	String^ security_q;
 	String^ confirm_password;
 	String^ age;
-	
+
 };
 
-public ref class Patient : public User 
+public ref class Patient : public User
 {
 public:
 	String^ insurance_no;
