@@ -1092,41 +1092,9 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			String^ confirmPassword = sign_up_confirm_password_textbox->Text;
 			String^ secutity_q = sign_up_security_q_textbox->Text;
 
-			if (first_name->Length == 0 || last_name->Length == 0 || phone->Length == 0 || id->Length == 0
-				|| password->Length == 0 || insurance_no->Length == 0 || age->Length == 0 || confirmPassword->Length == 0)
-			{
-
-				MessageBox::Show("Please enter all the fields", "On or more empty fields", MessageBoxButtons::OK);
-				return;
-			}
-			if (String::Compare(password, confirmPassword) != 0) {
-				MessageBox::Show("Password and Confirm Password do not match", "Password Error", MessageBoxButtons::OK);
-				return;
-			}
-			try {
-				String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
-				SqlConnection sqlConn(connString);
-				sqlConn.Open();
-				String^ sqlQuery = "INSERT INTO [user] (first_name, last_name, id, insurance_no, age, phone_no, password,security_q,role) VALUES (@first_name, @last_name, @id, @insurance_no, @age, @phone_no, @password,@security_q)";
-				SqlCommand command(sqlQuery, % sqlConn);
-				command.Parameters->AddWithValue("@id", id);
-				command.Parameters->AddWithValue("@first_name", first_name);
-				command.Parameters->AddWithValue("@last_name", last_name);
-				command.Parameters->AddWithValue("@insurance_no", insurance_no);
-				command.Parameters->AddWithValue("@age", age);
-				command.Parameters->AddWithValue("@phone_no", phone);
-				command.Parameters->AddWithValue("@password", password);
-				command.Parameters->AddWithValue("@security_q", secutity_q);
-				command.ExecuteNonQuery();
-				user = gcnew Patient;
-				user->id = id;
-				user->first_name = first_name;
-				user->last_name = last_name;
-				user->insurance_no = insurance_no;
-				user->age = age;
-				user->phone_no = phone;
-				user->password = password;
-				user->security_q = secutity_q;
+			Patient^ x = gcnew Patient();
+			 x->signup(id, password,first_name,last_name,insurance_no,age,phone,secutity_q,confirmPassword);
+			
 				login_panel->Visible = true; // show the panel
 				signup_panel->Visible = false; // hide the panel	
 				sign_up_first_name_textbox->Text = "";
@@ -1138,12 +1106,6 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 				sign_up_password_textbox->Text = "";
 				sign_up_confirm_password_textbox->Text = "";
 				sign_up_security_q_textbox->Text = "";
-
-			}
-			catch (Exception^ ex)
-			{
-				MessageBox::Show("Failed to register new user",	"Register Failure", MessageBoxButtons::OK);
-			}
 
 		};
 		private: System::Void Sign_up_back_Click(System::Object^ sender, System::EventArgs^ e)

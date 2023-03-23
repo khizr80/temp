@@ -57,5 +57,51 @@ public:
 			MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
 			return 0;
 		}
+	
+	}
+	void signup(String^i, String^ p, String^ f, String^ l, String^ in, String^ se, String^ a, String^ ph, String^ con)
+	{
+		id = i;
+		password = p;
+		first_name = f;
+		last_name = l;
+		insurance_no = in;
+		security_q = se;
+		age = a;
+		phone_no = ph;
+		confirm_password = con;
+		if (first_name->Length == 0 || last_name->Length == 0 || phone_no->Length == 0 || id->Length == 0
+			|| password->Length == 0 || insurance_no->Length == 0 || age->Length == 0 || confirm_password->Length == 0)
+		{
+
+			MessageBox::Show("Please enter all the fields", "On or more empty fields", MessageBoxButtons::OK);
+			return;
+		}
+		if (String::Compare(password, confirm_password) != 0) {
+			MessageBox::Show("Password and Confirm Password do not match", "Password Error", MessageBoxButtons::OK);
+			return;
+		}
+		try {
+			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
+			String^ sqlQuery = "INSERT INTO [user] (first_name, last_name, id, insurance_no, age, phone_no, password,security_q) VALUES (@first_name, @last_name, @id, @insurance_no, @age, @phone_no, @password,@security_q)";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@id", id);
+			command.Parameters->AddWithValue("@first_name", first_name);
+			command.Parameters->AddWithValue("@last_name", last_name);
+			command.Parameters->AddWithValue("@insurance_no", insurance_no);
+			command.Parameters->AddWithValue("@age", age);
+			command.Parameters->AddWithValue("@phone_no", phone_no);
+			command.Parameters->AddWithValue("@password", password);
+			command.Parameters->AddWithValue("@security_q", security_q);
+			command.ExecuteNonQuery();
+			
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("Failed to register new user", "Register Failure", MessageBoxButtons::OK);
+		}
+
 	}
 };
