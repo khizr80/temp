@@ -115,13 +115,8 @@ namespace temp {
 
 	private: System::Windows::Forms::Panel^ patient_panel;
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Panel^ doctor_panel;
 	private: System::Windows::Forms::Label^ label3;
-	private: System::Windows::Forms::Panel^ admin_panel;
-	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Button^ patient_panel_logout_button;
-	private: System::Windows::Forms::Button^ doctor_panel_logout_button;
-	private: System::Windows::Forms::Button^ admin_panel_logout_button;
 	private: System::Windows::Forms::Button^ patient_panel_view_detail_button;
 	private: System::Windows::Forms::Panel^ view_detail_panel;
 	private: System::Windows::Forms::Button^ view_detail_panel_back_button;
@@ -179,6 +174,13 @@ private: System::Windows::Forms::Button^ main_panel_exit_button;
 private: System::Windows::Forms::Button^ main_panel_admin_button;
 private: System::Windows::Forms::Button^ main_panel_doctor_button;
 private: System::Windows::Forms::Button^ main_panel_patient_button;
+private: System::Windows::Forms::Panel^ admin_panel;
+
+private: System::Windows::Forms::Button^ admin_panel_hire_doctor;
+private: System::Windows::Forms::Panel^ doctor_panel;
+private: System::Windows::Forms::Button^ doctor_panel_view_detail;
+
+
 
 
 
@@ -246,12 +248,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->patient_panel_view_detail_button = (gcnew System::Windows::Forms::Button());
 			this->patient_panel_logout_button = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->doctor_panel = (gcnew System::Windows::Forms::Panel());
-			this->doctor_panel_logout_button = (gcnew System::Windows::Forms::Button());
 			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->admin_panel = (gcnew System::Windows::Forms::Panel());
-			this->admin_panel_logout_button = (gcnew System::Windows::Forms::Button());
-			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->view_detail_panel = (gcnew System::Windows::Forms::Panel());
 			this->view_detail_panel_change_button = (gcnew System::Windows::Forms::Button());
 			this->view_detail_panel_back_button = (gcnew System::Windows::Forms::Button());
@@ -280,15 +277,19 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->main_panel_admin_button = (gcnew System::Windows::Forms::Button());
 			this->main_panel_doctor_button = (gcnew System::Windows::Forms::Button());
 			this->main_panel_patient_button = (gcnew System::Windows::Forms::Button());
+			this->admin_panel = (gcnew System::Windows::Forms::Panel());
+			this->admin_panel_hire_doctor = (gcnew System::Windows::Forms::Button());
+			this->doctor_panel = (gcnew System::Windows::Forms::Panel());
+			this->doctor_panel_view_detail = (gcnew System::Windows::Forms::Button());
 			this->login_panel->SuspendLayout();
 			this->forget_password_panel->SuspendLayout();
 			this->signup_panel->SuspendLayout();
 			this->patient_panel->SuspendLayout();
-			this->doctor_panel->SuspendLayout();
-			this->admin_panel->SuspendLayout();
 			this->view_detail_panel->SuspendLayout();
 			this->complain_panel->SuspendLayout();
 			this->main_panel->SuspendLayout();
+			this->admin_panel->SuspendLayout();
+			this->doctor_panel->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// login_panel_password_label
@@ -315,14 +316,14 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			// 
 			this->login_panel_id_textbox->Location = System::Drawing::Point(18, 137);
 			this->login_panel_id_textbox->Name = L"login_panel_id_textbox";
-			this->login_panel_id_textbox->Size = System::Drawing::Size(263, 29);
+			this->login_panel_id_textbox->Size = System::Drawing::Size(263, 20);
 			this->login_panel_id_textbox->TabIndex = 2;
 			// 
 			// login_panel_password_textbox
 			// 
 			this->login_panel_password_textbox->Location = System::Drawing::Point(18, 63);
 			this->login_panel_password_textbox->Name = L"login_panel_password_textbox";
-			this->login_panel_password_textbox->Size = System::Drawing::Size(263, 29);
+			this->login_panel_password_textbox->Size = System::Drawing::Size(263, 20);
 			this->login_panel_password_textbox->TabIndex = 3;
 			this->login_panel_password_textbox->UseSystemPasswordChar = true;
 			// 
@@ -389,7 +390,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->forget_password_panel->Controls->Add(this->forget_password_panel_id_textbox);
 			this->forget_password_panel->Controls->Add(this->forget_password_panel_security_q_label);
 			this->forget_password_panel->Controls->Add(this->forget_password_id_label);
-			this->forget_password_panel->Location = System::Drawing::Point(12, 458);
+			this->forget_password_panel->Location = System::Drawing::Point(0, 0);
 			this->forget_password_panel->Name = L"forget_password_panel";
 			this->forget_password_panel->Size = System::Drawing::Size(420, 450);
 			this->forget_password_panel->TabIndex = 8;
@@ -499,7 +500,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->signup_securityq->AutoSize = true;
 			this->signup_securityq->Location = System::Drawing::Point(13, 336);
 			this->signup_securityq->Name = L"signup_securityq";
-			this->signup_securityq->Size = System::Drawing::Size(155, 22);
+			this->signup_securityq->Size = System::Drawing::Size(88, 13);
 			this->signup_securityq->TabIndex = 17;
 			this->signup_securityq->Text = L"Security question";
 			// 
@@ -507,7 +508,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			// 
 			this->sign_up_security_q_textbox->Location = System::Drawing::Point(196, 329);
 			this->sign_up_security_q_textbox->Name = L"sign_up_security_q_textbox";
-			this->sign_up_security_q_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_security_q_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_security_q_textbox->TabIndex = 16;
 			// 
 			// signup_confirnpassword_label
@@ -515,7 +516,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->signup_confirnpassword_label->AutoSize = true;
 			this->signup_confirnpassword_label->Location = System::Drawing::Point(13, 293);
 			this->signup_confirnpassword_label->Name = L"signup_confirnpassword_label";
-			this->signup_confirnpassword_label->Size = System::Drawing::Size(164, 22);
+			this->signup_confirnpassword_label->Size = System::Drawing::Size(90, 13);
 			this->signup_confirnpassword_label->TabIndex = 15;
 			this->signup_confirnpassword_label->Text = L"Confirm password";
 			// 
@@ -523,7 +524,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			// 
 			this->sign_up_confirm_password_textbox->Location = System::Drawing::Point(196, 286);
 			this->sign_up_confirm_password_textbox->Name = L"sign_up_confirm_password_textbox";
-			this->sign_up_confirm_password_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_confirm_password_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_confirm_password_textbox->TabIndex = 14;
 			// 
 			// signup_password_label
@@ -531,7 +532,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->signup_password_label->AutoSize = true;
 			this->signup_password_label->Location = System::Drawing::Point(13, 258);
 			this->signup_password_label->Name = L"signup_password_label";
-			this->signup_password_label->Size = System::Drawing::Size(94, 22);
+			this->signup_password_label->Size = System::Drawing::Size(53, 13);
 			this->signup_password_label->TabIndex = 13;
 			this->signup_password_label->Text = L"Password";
 			// 
@@ -539,7 +540,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			// 
 			this->sign_up_password_textbox->Location = System::Drawing::Point(196, 251);
 			this->sign_up_password_textbox->Name = L"sign_up_password_textbox";
-			this->sign_up_password_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_password_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_password_textbox->TabIndex = 12;
 			// 
 			// phone_no_label
@@ -547,7 +548,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->phone_no_label->AutoSize = true;
 			this->phone_no_label->Location = System::Drawing::Point(13, 220);
 			this->phone_no_label->Name = L"phone_no_label";
-			this->phone_no_label->Size = System::Drawing::Size(91, 22);
+			this->phone_no_label->Size = System::Drawing::Size(53, 13);
 			this->phone_no_label->TabIndex = 11;
 			this->phone_no_label->Text = L"Phone no";
 			// 
@@ -555,7 +556,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			// 
 			this->sign_up_phone_no_textbox->Location = System::Drawing::Point(196, 213);
 			this->sign_up_phone_no_textbox->Name = L"sign_up_phone_no_textbox";
-			this->sign_up_phone_no_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_phone_no_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_phone_no_textbox->TabIndex = 10;
 			// 
 			// age_label
@@ -563,7 +564,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->age_label->AutoSize = true;
 			this->age_label->Location = System::Drawing::Point(13, 182);
 			this->age_label->Name = L"age_label";
-			this->age_label->Size = System::Drawing::Size(45, 22);
+			this->age_label->Size = System::Drawing::Size(26, 13);
 			this->age_label->TabIndex = 9;
 			this->age_label->Text = L"Age";
 			// 
@@ -572,7 +573,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->lnsurance_no_label->AutoSize = true;
 			this->lnsurance_no_label->Location = System::Drawing::Point(13, 143);
 			this->lnsurance_no_label->Name = L"lnsurance_no_label";
-			this->lnsurance_no_label->Size = System::Drawing::Size(119, 22);
+			this->lnsurance_no_label->Size = System::Drawing::Size(69, 13);
 			this->lnsurance_no_label->TabIndex = 8;
 			this->lnsurance_no_label->Text = L"Insurance no";
 			// 
@@ -581,7 +582,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->id_no_label->AutoSize = true;
 			this->id_no_label->Location = System::Drawing::Point(13, 112);
 			this->id_no_label->Name = L"id_no_label";
-			this->id_no_label->Size = System::Drawing::Size(99, 22);
+			this->id_no_label->Size = System::Drawing::Size(56, 13);
 			this->id_no_label->TabIndex = 7;
 			this->id_no_label->Text = L"ID number";
 			// 
@@ -590,7 +591,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->llast_name_label->AutoSize = true;
 			this->llast_name_label->Location = System::Drawing::Point(13, 77);
 			this->llast_name_label->Name = L"llast_name_label";
-			this->llast_name_label->Size = System::Drawing::Size(101, 22);
+			this->llast_name_label->Size = System::Drawing::Size(58, 13);
 			this->llast_name_label->TabIndex = 6;
 			this->llast_name_label->Text = L"Last Name";
 			// 
@@ -599,7 +600,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->first_name_label->AutoSize = true;
 			this->first_name_label->Location = System::Drawing::Point(13, 35);
 			this->first_name_label->Name = L"first_name_label";
-			this->first_name_label->Size = System::Drawing::Size(102, 22);
+			this->first_name_label->Size = System::Drawing::Size(57, 13);
 			this->first_name_label->TabIndex = 5;
 			this->first_name_label->Text = L"First Name";
 			// 
@@ -607,35 +608,35 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			// 
 			this->sign_up_last_name_textbox->Location = System::Drawing::Point(196, 70);
 			this->sign_up_last_name_textbox->Name = L"sign_up_last_name_textbox";
-			this->sign_up_last_name_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_last_name_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_last_name_textbox->TabIndex = 4;
 			// 
 			// sign_up_id_textbox
 			// 
 			this->sign_up_id_textbox->Location = System::Drawing::Point(196, 105);
 			this->sign_up_id_textbox->Name = L"sign_up_id_textbox";
-			this->sign_up_id_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_id_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_id_textbox->TabIndex = 3;
 			// 
 			// sign_up_insuranc_no_textbox
 			// 
 			this->sign_up_insuranc_no_textbox->Location = System::Drawing::Point(196, 140);
 			this->sign_up_insuranc_no_textbox->Name = L"sign_up_insuranc_no_textbox";
-			this->sign_up_insuranc_no_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_insuranc_no_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_insuranc_no_textbox->TabIndex = 2;
 			// 
 			// sign_up_age_textbox
 			// 
 			this->sign_up_age_textbox->Location = System::Drawing::Point(196, 175);
 			this->sign_up_age_textbox->Name = L"sign_up_age_textbox";
-			this->sign_up_age_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_age_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_age_textbox->TabIndex = 1;
 			// 
 			// sign_up_first_name_textbox
 			// 
 			this->sign_up_first_name_textbox->Location = System::Drawing::Point(196, 35);
 			this->sign_up_first_name_textbox->Name = L"sign_up_first_name_textbox";
-			this->sign_up_first_name_textbox->Size = System::Drawing::Size(142, 29);
+			this->sign_up_first_name_textbox->Size = System::Drawing::Size(142, 20);
 			this->sign_up_first_name_textbox->TabIndex = 0;
 			// 
 			// patient_panel
@@ -644,7 +645,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->patient_panel->Controls->Add(this->patient_panel_view_detail_button);
 			this->patient_panel->Controls->Add(this->patient_panel_logout_button);
 			this->patient_panel->Controls->Add(this->label1);
-			this->patient_panel->Location = System::Drawing::Point(453, 415);
+			this->patient_panel->Location = System::Drawing::Point(0, 0);
 			this->patient_panel->Name = L"patient_panel";
 			this->patient_panel->Size = System::Drawing::Size(420, 450);
 			this->patient_panel->TabIndex = 9;
@@ -688,71 +689,18 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"patient";
 			// 
-			// doctor_panel
-			// 
-			this->doctor_panel->Controls->Add(this->doctor_panel_logout_button);
-			this->doctor_panel->Controls->Add(this->label3);
-			this->doctor_panel->Controls->Add(this->login_panel);
-			this->doctor_panel->Controls->Add(this->signup_panel);
-			this->doctor_panel->Location = System::Drawing::Point(0, 450);
-			this->doctor_panel->Name = L"doctor_panel";
-			this->doctor_panel->Size = System::Drawing::Size(420, 450);
-			this->doctor_panel->TabIndex = 10;
-			// 
-			// doctor_panel_logout_button
-			// 
-			this->doctor_panel_logout_button->Location = System::Drawing::Point(298, 3);
-			this->doctor_panel_logout_button->Name = L"doctor_panel_logout_button";
-			this->doctor_panel_logout_button->Size = System::Drawing::Size(122, 42);
-			this->doctor_panel_logout_button->TabIndex = 6;
-			this->doctor_panel_logout_button->Text = L"Logout";
-			this->doctor_panel_logout_button->UseVisualStyleBackColor = true;
-			this->doctor_panel_logout_button->Click += gcnew System::EventHandler(this, &MyForm::doctor_panel_logout_button_Click);
-			// 
 			// label3
 			// 
-			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(177, 214);
+			this->label3->Location = System::Drawing::Point(0, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(64, 22);
-			this->label3->TabIndex = 1;
-			this->label3->Text = L"doctor";
-			// 
-			// admin_panel
-			// 
-			this->admin_panel->Controls->Add(this->admin_panel_logout_button);
-			this->admin_panel->Controls->Add(this->label2);
-			this->admin_panel->Controls->Add(this->doctor_panel);
-			this->admin_panel->Location = System::Drawing::Point(0, 450);
-			this->admin_panel->Name = L"admin_panel";
-			this->admin_panel->Size = System::Drawing::Size(420, 450);
-			this->admin_panel->TabIndex = 10;
-			// 
-			// admin_panel_logout_button
-			// 
-			this->admin_panel_logout_button->Location = System::Drawing::Point(295, 3);
-			this->admin_panel_logout_button->Name = L"admin_panel_logout_button";
-			this->admin_panel_logout_button->Size = System::Drawing::Size(122, 42);
-			this->admin_panel_logout_button->TabIndex = 6;
-			this->admin_panel_logout_button->Text = L"Logout";
-			this->admin_panel_logout_button->UseVisualStyleBackColor = true;
-			this->admin_panel_logout_button->Click += gcnew System::EventHandler(this, &MyForm::admin_panel_logout_button_Click);
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(87, 62);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(61, 22);
-			this->label2->TabIndex = 1;
-			this->label2->Text = L"admin";
+			this->label3->Size = System::Drawing::Size(100, 23);
+			this->label3->TabIndex = 0;
 			// 
 			// view_detail_panel
 			// 
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_change_button);
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_back_button);
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_security_q_label);
-			this->view_detail_panel->Controls->Add(this->admin_panel);
 			this->view_detail_panel->Controls->Add(this->view_detail_security_q_textbox);
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_password_label);
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_password_textbox);
@@ -768,7 +716,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_insurance_no_textbox);
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_age_textbox);
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_first_name_textbox);
-			this->view_detail_panel->Location = System::Drawing::Point(879, 444);
+			this->view_detail_panel->Location = System::Drawing::Point(0, 0);
 			this->view_detail_panel->Name = L"view_detail_panel";
 			this->view_detail_panel->Size = System::Drawing::Size(420, 450);
 			this->view_detail_panel->TabIndex = 11;
@@ -927,7 +875,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->complain_panel->Controls->Add(this->complain_panel_back_button);
 			this->complain_panel->Controls->Add(this->complain_panel_ok_button);
 			this->complain_panel->Controls->Add(this->complain_panel_textbox);
-			this->complain_panel->Location = System::Drawing::Point(1007, 2);
+			this->complain_panel->Location = System::Drawing::Point(0, 0);
 			this->complain_panel->Name = L"complain_panel";
 			this->complain_panel->Size = System::Drawing::Size(232, 327);
 			this->complain_panel->TabIndex = 12;
@@ -965,7 +913,7 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->main_panel->Controls->Add(this->main_panel_admin_button);
 			this->main_panel->Controls->Add(this->main_panel_doctor_button);
 			this->main_panel->Controls->Add(this->main_panel_patient_button);
-			this->main_panel->Location = System::Drawing::Point(424, 28);
+			this->main_panel->Location = System::Drawing::Point(2, 7);
 			this->main_panel->Name = L"main_panel";
 			this->main_panel->Size = System::Drawing::Size(420, 450);
 			this->main_panel->TabIndex = 13;
@@ -1010,10 +958,47 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->main_panel_patient_button->UseVisualStyleBackColor = true;
 			this->main_panel_patient_button->Click += gcnew System::EventHandler(this, &MyForm::main_panel_patient_button_Click);
 			// 
+			// admin_panel
+			// 
+			this->admin_panel->Controls->Add(this->admin_panel_hire_doctor);
+			this->admin_panel->Location = System::Drawing::Point(0, 0);
+			this->admin_panel->Name = L"admin_panel";
+			this->admin_panel->Size = System::Drawing::Size(420, 450);
+			this->admin_panel->TabIndex = 14;
+			// 
+			// admin_panel_hire_doctor
+			// 
+			this->admin_panel_hire_doctor->Location = System::Drawing::Point(15, 16);
+			this->admin_panel_hire_doctor->Name = L"admin_panel_hire_doctor";
+			this->admin_panel_hire_doctor->Size = System::Drawing::Size(122, 42);
+			this->admin_panel_hire_doctor->TabIndex = 12;
+			this->admin_panel_hire_doctor->Text = L"Hire Doctor";
+			this->admin_panel_hire_doctor->UseVisualStyleBackColor = true;
+			this->admin_panel_hire_doctor->Click += gcnew System::EventHandler(this, &MyForm::admin_panel_hire_doctor_Click);
+			// 
+			// doctor_panel
+			// 
+			this->doctor_panel->Controls->Add(this->doctor_panel_view_detail);
+			this->doctor_panel->Location = System::Drawing::Point(574, 5);
+			this->doctor_panel->Name = L"doctor_panel";
+			this->doctor_panel->Size = System::Drawing::Size(420, 450);
+			this->doctor_panel->TabIndex = 15;
+			// 
+			// doctor_panel_view_detail
+			// 
+			this->doctor_panel_view_detail->Location = System::Drawing::Point(26, 16);
+			this->doctor_panel_view_detail->Name = L"doctor_panel_view_detail";
+			this->doctor_panel_view_detail->Size = System::Drawing::Size(122, 42);
+			this->doctor_panel_view_detail->TabIndex = 13;
+			this->doctor_panel_view_detail->Text = L"view detail";
+			this->doctor_panel_view_detail->UseVisualStyleBackColor = true;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1238, 749);
+			this->Controls->Add(this->doctor_panel);
+			this->Controls->Add(this->admin_panel);
 			this->Controls->Add(this->main_panel);
 			this->Controls->Add(this->complain_panel);
 			this->Controls->Add(this->view_detail_panel);
@@ -1032,15 +1017,13 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 			this->signup_panel->PerformLayout();
 			this->patient_panel->ResumeLayout(false);
 			this->patient_panel->PerformLayout();
-			this->doctor_panel->ResumeLayout(false);
-			this->doctor_panel->PerformLayout();
-			this->admin_panel->ResumeLayout(false);
-			this->admin_panel->PerformLayout();
 			this->view_detail_panel->ResumeLayout(false);
 			this->view_detail_panel->PerformLayout();
 			this->complain_panel->ResumeLayout(false);
 			this->complain_panel->PerformLayout();
 			this->main_panel->ResumeLayout(false);
+			this->admin_panel->ResumeLayout(false);
+			this->doctor_panel->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
@@ -1053,55 +1036,42 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 
 			String^ id = this->login_panel_id_textbox->Text;
 			String^ password = this->login_panel_password_textbox->Text;
-			//if (id->Length == 0 || password->Length == 0) {
-			//	MessageBox::Show("Please enter email and password",
-			//		"Email or Password Empty", MessageBoxButtons::OK);
-			//	return;
-			//}
-
-			//try {
-			//	String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True;";
-			//	SqlConnection sqlConn(connString);
-			//	sqlConn.Open();
-			//	String^ sqlQuery = "SELECT * FROM [user] WHERE id=@no AND password=@pwd";
-			//	SqlCommand command(sqlQuery, % sqlConn);
-			//	command.Parameters->AddWithValue("@no", id);
-			//	command.Parameters->AddWithValue("@pwd", password);
-			//	SqlDataReader^ reader = command.ExecuteReader();
-			//	if (reader->Read()) {
-			//		user = gcnew Patient;
-			//		user->id = reader->GetString(0);
-			//		user->password = reader->GetString(1);
-			//		user->first_name = reader->GetString(2);
-			//		user->last_name = reader->GetString(3);
-			//		user->insurance_no = reader->GetString(4);
-			//		user->security_q = reader->GetString(5);
-			//		user->age = reader->GetString(6);
-			//		user->phone_no = reader->GetString(7);
-			//		login_panel_id_textbox->Text = "";
-			//		login_panel_password_textbox->Text = "";
-			//		
-			//		//MessageBox::Show("" + user->first_name + user->last_name + user->id + user->password + user->insurance_no
-			//			//+ user->security_q + user->age + user->phone_no + user->role, "message", MessageBoxButtons::OK);
-			//	}
-			//	else {
-			//		MessageBox::Show("Email or password is incorrect",
-			//			"Email or Password Error", MessageBoxButtons::OK);
-			//	}
-			//}
-			//catch (Exception^ e) {
-			//	MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
-			//}
-			Patient x;
-			bool c=x.login(id,password);
-			if (c == 1)
+		
+			if (ismain_panel_patient_button == true)
 			{
-				login_panel->Visible = false; // show the panel
-				patient_panel->Visible = true; // hide the panel
+				Patient^ x = gcnew Patient();
+				bool c = x->login(id, password);
+				if (c == 1)
+				{
+					login_panel->Visible = false; // show the panel
+					patient_panel->Visible = true; // hide the panel
+				}
+			}
+			else if (ismain_panel_doctor_button == true)
+			{
+
+				doctor^ x = gcnew doctor();
+				bool c = x->login(id, password);
+				if (c == 1)
+				{
+					login_panel->Visible = false; // show the panel
+					doctor_panel->Visible = true; // hide the panel
+				}
+				
+			}
+			else if (ismain_panel_admin_button == true)
+			{
+				admin^ x = gcnew admin();
+				bool c = x->login(id, password);
+				if (c == 1)
+				{
+
+					login_panel->Visible = false; // show the panel
+					admin_panel->Visible = true; // hide the panel
+				}
 			}
 			login_panel_id_textbox->Text = "";
 			login_panel_password_textbox->Text = "";
-
 		}
 
 		private: System::Void signup_button_Click(System::Object^ sender, System::EventArgs^ e)
@@ -1222,21 +1192,14 @@ private: System::Windows::Forms::Button^ main_panel_patient_button;
 		{
 			main_panel->Visible = true;
 			login_panel->Visible = false;
+			ismain_panel_admin_button = false;
+			ismain_panel_doctor_button = false;
+			ismain_panel_patient_button = false;
 		}
 		private: System::Void patient_panel_logout_button_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			login_panel->Visible = true; // show the panel
 			patient_panel->Visible = false; // hide the panel
-		}
-		private: System::Void doctor_panel_logout_button_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			login_panel->Visible = true; // show the panel
-			doctor_panel->Visible = false; // hide the panel
-		}
-		private: System::Void admin_panel_logout_button_Click(System::Object^ sender, System::EventArgs^ e)
-		{
-			login_panel->Visible = true; // show the panel
-			admin_panel->Visible = false; // hide the panel
 		}
 	private: System::Void patient_panel_view_detail_button_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
@@ -1366,6 +1329,11 @@ private: System::Void main_panel_admin_button_Click(System::Object^ sender, Syst
 	main_panel->Visible = false;
 	login_panel->Visible = true;
 	ismain_panel_admin_button = true;
+}
+
+private: System::Void admin_panel_hire_doctor_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+
 }
 };
 }

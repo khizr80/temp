@@ -13,11 +13,11 @@ public ref class Patient : public User
 {
 public:
 	String^ insurance_no;
-	bool login(String^ x, String^ y)
+	bool login(String^ i, String^ pass)
 	{
 		
-		String^ id = x;
-		String^ password = y;
+		String^ id = i;
+		String^ password = pass;
 
 		if (id->Length == 0 || password->Length == 0) {
 			MessageBox::Show("Please enter email and password","Email or Password Empty", MessageBoxButtons::OK);
@@ -50,7 +50,7 @@ public:
 			else {
 				MessageBox::Show("Email or password is incorrect",
 					"Email or Password Error", MessageBoxButtons::OK);
-			
+				return 0;
 			}
 		}
 		catch (Exception^ e) {
