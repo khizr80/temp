@@ -92,7 +92,7 @@ public:
 		specialization = in;
 		security_q = se;
 		phone_no = ph;
-
+		age = a;
 		if (first_name->Length == 0 || last_name->Length == 0 || phone_no->Length == 0 || id->Length == 0
 			|| password->Length == 0 || specialization->Length == 0 || age->Length == 0)
 		{

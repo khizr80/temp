@@ -1373,5 +1373,5 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 	view_detail_security_q_textbox->Text = userd->security_q;
 
 }
-};
+	};
 }
