@@ -179,6 +179,8 @@ private: System::Windows::Forms::Panel^ admin_panel;
 private: System::Windows::Forms::Button^ admin_panel_hire_doctor;
 private: System::Windows::Forms::Panel^ doctor_panel;
 private: System::Windows::Forms::Button^ doctor_panel_view_detail;
+private: System::Windows::Forms::Button^ admin_panel_logout_button;
+private: System::Windows::Forms::Button^ doctor_panel_logout_button;
 
 
 
@@ -279,8 +281,10 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			this->main_panel_doctor_button = (gcnew System::Windows::Forms::Button());
 			this->main_panel_patient_button = (gcnew System::Windows::Forms::Button());
 			this->admin_panel = (gcnew System::Windows::Forms::Panel());
+			this->admin_panel_logout_button = (gcnew System::Windows::Forms::Button());
 			this->admin_panel_hire_doctor = (gcnew System::Windows::Forms::Button());
 			this->doctor_panel = (gcnew System::Windows::Forms::Panel());
+			this->doctor_panel_logout_button = (gcnew System::Windows::Forms::Button());
 			this->doctor_panel_view_detail = (gcnew System::Windows::Forms::Button());
 			this->login_panel->SuspendLayout();
 			this->forget_password_panel->SuspendLayout();
@@ -961,11 +965,22 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			// 
 			// admin_panel
 			// 
+			this->admin_panel->Controls->Add(this->admin_panel_logout_button);
 			this->admin_panel->Controls->Add(this->admin_panel_hire_doctor);
 			this->admin_panel->Location = System::Drawing::Point(2, 458);
 			this->admin_panel->Name = L"admin_panel";
 			this->admin_panel->Size = System::Drawing::Size(420, 450);
 			this->admin_panel->TabIndex = 14;
+			// 
+			// admin_panel_logout_button
+			// 
+			this->admin_panel_logout_button->Location = System::Drawing::Point(295, 5);
+			this->admin_panel_logout_button->Name = L"admin_panel_logout_button";
+			this->admin_panel_logout_button->Size = System::Drawing::Size(122, 42);
+			this->admin_panel_logout_button->TabIndex = 13;
+			this->admin_panel_logout_button->Text = L"Logout";
+			this->admin_panel_logout_button->UseVisualStyleBackColor = true;
+			this->admin_panel_logout_button->Click += gcnew System::EventHandler(this, &MyForm::admin_panel_logout_button_Click);
 			// 
 			// admin_panel_hire_doctor
 			// 
@@ -979,11 +994,22 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			// 
 			// doctor_panel
 			// 
+			this->doctor_panel->Controls->Add(this->doctor_panel_logout_button);
 			this->doctor_panel->Controls->Add(this->doctor_panel_view_detail);
 			this->doctor_panel->Location = System::Drawing::Point(846, 0);
 			this->doctor_panel->Name = L"doctor_panel";
 			this->doctor_panel->Size = System::Drawing::Size(420, 450);
 			this->doctor_panel->TabIndex = 15;
+			// 
+			// doctor_panel_logout_button
+			// 
+			this->doctor_panel_logout_button->Location = System::Drawing::Point(273, 17);
+			this->doctor_panel_logout_button->Name = L"doctor_panel_logout_button";
+			this->doctor_panel_logout_button->Size = System::Drawing::Size(122, 42);
+			this->doctor_panel_logout_button->TabIndex = 14;
+			this->doctor_panel_logout_button->Text = L"Logout";
+			this->doctor_panel_logout_button->UseVisualStyleBackColor = true;
+			this->doctor_panel_logout_button->Click += gcnew System::EventHandler(this, &MyForm::doctor_panel_logout_button_Click);
 			// 
 			// doctor_panel_view_detail
 			// 
@@ -1240,65 +1266,75 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 				MessageBox::Show("Failed to register new user", "Register Failure", MessageBoxButtons::OK);
 			}
 		}
-private: System::Void patient_panel_complaint_button_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	complain_panel->Visible = true; // show the panel
-	patient_panel->Visible = false; // hide the panel
-}
-private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void complain_panel_ok_button_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	try {
-		String^ x = "NULL";
-		String^ complain = complain_panel_textbox->Text;
-		String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
-		SqlConnection sqlConn(connString);
-		sqlConn.Open();
-		String^ sqlQuery = "INSERT INTO [complain] (complain) VALUES (@complain)";
-		SqlCommand command(sqlQuery, % sqlConn);
-		command.Parameters->AddWithValue("@complain", complain);
-		command.ExecuteNonQuery();
-		MessageBox::Show("Success", "Complain enter", MessageBoxButtons::OK);
-	}
-	catch (Exception^ e) {
-		MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
-	}
-}
-private: System::Void complain_panel_back_button_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	complain_panel->Visible = false; // show the panel
-	patient_panel->Visible = true; // hide the panel
-}
-private: System::Void main_panel_exit_button_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	this->Close();
-}
-private: System::Void main_panel_patient_button_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	main_panel->Visible = false;
-	login_panel->Visible = true;
-	ismain_panel_patient_button = true;
-}
-private: System::Void main_panel_doctor_button_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	main_panel->Visible = false;
-	login_panel->Visible = true;
-	ismain_panel_doctor_button = true;
-	login_panel_signup_button->Visible = false;
-}
-private: System::Void main_panel_admin_button_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	main_panel->Visible = false;
-	login_panel->Visible = true;
-	ismain_panel_admin_button = true;
-	login_panel_signup_button->Visible = false;
-}
+		private: System::Void patient_panel_complaint_button_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			complain_panel->Visible = true; // show the panel
+			patient_panel->Visible = false; // hide the panel
+		}
+		private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		}
+		private: System::Void complain_panel_ok_button_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			try {
+				String^ x = "NULL";
+				String^ complain = complain_panel_textbox->Text;
+				String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+				SqlConnection sqlConn(connString);
+				sqlConn.Open();
+				String^ sqlQuery = "INSERT INTO [complain] (complain) VALUES (@complain)";
+				SqlCommand command(sqlQuery, % sqlConn);
+				command.Parameters->AddWithValue("@complain", complain);
+				command.ExecuteNonQuery();
+				MessageBox::Show("Success", "Complain enter", MessageBoxButtons::OK);
+			}
+			catch (Exception^ e) {
+				MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
+			}
+		}
+		private: System::Void complain_panel_back_button_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			complain_panel->Visible = false; // show the panel
+			patient_panel->Visible = true; // hide the panel
+		}
+		private: System::Void main_panel_exit_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			this->Close();
+		}
+		private: System::Void main_panel_patient_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			main_panel->Visible = false;
+			login_panel->Visible = true;
+			ismain_panel_patient_button = true;
+		}
+		private: System::Void main_panel_doctor_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			main_panel->Visible = false;
+			login_panel->Visible = true;
+			ismain_panel_doctor_button = true;
+			login_panel_signup_button->Visible = false;
+		}
+		private: System::Void main_panel_admin_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			main_panel->Visible = false;
+			login_panel->Visible = true;
+			ismain_panel_admin_button = true;
+			login_panel_signup_button->Visible = false;
+		}
 
-private: System::Void admin_panel_hire_doctor_Click(System::Object^ sender, System::EventArgs^ e) 
-{
+		private: System::Void admin_panel_hire_doctor_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
 
-}
+		}
 
-};
+		private: System::Void doctor_panel_logout_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			login_panel->Visible = true; // show the panel
+			doctor_panel->Visible = false; // hide the panel
+		}
+		private: System::Void admin_panel_logout_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			login_panel->Visible = true; // show the panel
+			admin_panel->Visible = false; // hide the panel
+		}
+	};
 }
