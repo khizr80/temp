@@ -28,21 +28,21 @@ public:
 			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True;";
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
-			String^ sqlQuery = "SELECT * FROM [doctor] WHERE id=@no AND password=@pwd";
+			String^ sqlQuery = "SELECT * FROM [doctor] WHERE id=@id AND password=@password";
 			SqlCommand command(sqlQuery, % sqlConn);
-			command.Parameters->AddWithValue("@no", id);
-			command.Parameters->AddWithValue("@pwd", password);
+			command.Parameters->AddWithValue("@id", id);
+			command.Parameters->AddWithValue("@password", password);
 			SqlDataReader^ reader = command.ExecuteReader();
 			if (reader->Read()) {
 
 				this->id = reader->GetString(0);
-				password = reader->GetString(1);
-				first_name = reader->GetString(2);
-				last_name = reader->GetString(3);
-				specialization = reader->GetString(4);
-				security_q = reader->GetString(5);
-				age = reader->GetString(6);
-				phone_no = reader->GetString(7);
+				 this->password = reader->GetString(1);
+				 first_name = reader->GetString(2);
+				 last_name = reader->GetString(3);
+				 specialization = reader->GetString(4);
+				 security_q = reader->GetString(5);
+				 age = reader->GetString(6);
+				 phone_no = reader->GetString(7);
 				return 1;
 				//MessageBox::Show("" + user->first_name + user->last_name + user->id + user->password + user->insurance_no
 					//+ user->security_q + user->age + user->phone_no + user->role, "message", MessageBoxButtons::OK);
@@ -81,6 +81,43 @@ public:
 		catch (Exception^ ex)
 		{
 			MessageBox::Show("Id or security question incorrect", "Forget password Failure", MessageBoxButtons::OK);
+		}
+	}
+	int change_detail(String^ f, String^ l, String^ i, String^ p, String^ in, String^ se, String^ a, String^ ph)
+	{
+		id = i;
+		password = p;
+		first_name = f;
+		last_name = l;
+		specialization = in;
+		security_q = se;
+		phone_no = ph;
+
+		if (first_name->Length == 0 || last_name->Length == 0 || phone_no->Length == 0 || id->Length == 0
+			|| password->Length == 0 || specialization->Length == 0 || age->Length == 0)
+		{
+			return 2;
+		}
+		try {
+			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
+			String^ sqlQuery = "UPDATE [doctor] SET first_name = @first_name, last_name = @last_name, specialization = @specialization, age = @age, phone_no = @phone_no, password = @password, security_q = @security_q WHERE id = @id";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@id", id);
+			command.Parameters->AddWithValue("@first_name", first_name);
+			command.Parameters->AddWithValue("@last_name", last_name);
+			command.Parameters->AddWithValue("@specialization", specialization);
+			command.Parameters->AddWithValue("@age", age);
+			command.Parameters->AddWithValue("@phone_no", phone_no);
+			command.Parameters->AddWithValue("@password", password);
+			command.Parameters->AddWithValue("@security_q", security_q);
+			command.ExecuteNonQuery();
+			return 0;
+		}
+		catch (Exception^ ex)
+		{
+			return 1;
 		}
 	}
 };

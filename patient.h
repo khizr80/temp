@@ -35,8 +35,8 @@ public:
 			SqlDataReader^ reader = command.ExecuteReader();
 			if (reader->Read()) {
 				
-				id = reader->GetString(0);
-				 password = reader->GetString(1);
+				this->id = reader->GetString(0);
+				 this->password = reader->GetString(1);
 				 first_name = reader->GetString(2);
 				 last_name = reader->GetString(3);
 				 insurance_no = reader->GetString(4);
@@ -127,6 +127,43 @@ public:
 		catch (Exception^ ex)
 		{
 			MessageBox::Show("Id or security question incorrect", "Forget password Failure", MessageBoxButtons::OK);
+		}
+	}
+	int change_detail(String^ f, String^ l, String^ i, String^ p, String^ in, String^ se, String^ a, String^ ph)
+	{
+		id = i;
+		password = p;
+		first_name = f;
+		last_name = l;
+		insurance_no = in;
+		security_q = se;
+		phone_no = ph;
+
+		if (first_name->Length == 0 || last_name->Length == 0 || phone_no->Length == 0 || id->Length == 0
+			|| password->Length == 0 || insurance_no->Length == 0 || age->Length == 0)
+		{
+			return 2;
+		}
+		try {
+			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
+			String^ sqlQuery = "UPDATE [user] SET first_name = @first_name, last_name = @last_name, insurance_no = @insurance_no, age = @age, phone_no = @phone_no, password = @password, security_q = @security_q WHERE id = @id";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@id", id);
+			command.Parameters->AddWithValue("@first_name", first_name);
+			command.Parameters->AddWithValue("@last_name", last_name);
+			command.Parameters->AddWithValue("@insurance_no", insurance_no);
+			command.Parameters->AddWithValue("@age", age);
+			command.Parameters->AddWithValue("@phone_no", phone_no);
+			command.Parameters->AddWithValue("@password", password);
+			command.Parameters->AddWithValue("@security_q", security_q);
+			command.ExecuteNonQuery();
+			return 0;
+		}
+		catch (Exception^ ex)
+		{
+			return 1;
 		}
 	}
 };
