@@ -645,7 +645,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			this->patient_panel->Controls->Add(this->patient_panel_view_detail_button);
 			this->patient_panel->Controls->Add(this->patient_panel_logout_button);
 			this->patient_panel->Controls->Add(this->label1);
-			this->patient_panel->Location = System::Drawing::Point(0, 0);
+			this->patient_panel->Location = System::Drawing::Point(428, 463);
 			this->patient_panel->Name = L"patient_panel";
 			this->patient_panel->Size = System::Drawing::Size(420, 450);
 			this->patient_panel->TabIndex = 9;
@@ -716,7 +716,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_insurance_no_textbox);
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_age_textbox);
 			this->view_detail_panel->Controls->Add(this->view_detail_panel_first_name_textbox);
-			this->view_detail_panel->Location = System::Drawing::Point(0, 0);
+			this->view_detail_panel->Location = System::Drawing::Point(420, 0);
 			this->view_detail_panel->Name = L"view_detail_panel";
 			this->view_detail_panel->Size = System::Drawing::Size(420, 450);
 			this->view_detail_panel->TabIndex = 11;
@@ -875,7 +875,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			this->complain_panel->Controls->Add(this->complain_panel_back_button);
 			this->complain_panel->Controls->Add(this->complain_panel_ok_button);
 			this->complain_panel->Controls->Add(this->complain_panel_textbox);
-			this->complain_panel->Location = System::Drawing::Point(0, 0);
+			this->complain_panel->Location = System::Drawing::Point(3, 7);
 			this->complain_panel->Name = L"complain_panel";
 			this->complain_panel->Size = System::Drawing::Size(232, 327);
 			this->complain_panel->TabIndex = 12;
@@ -912,8 +912,9 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			this->main_panel->Controls->Add(this->main_panel_exit_button);
 			this->main_panel->Controls->Add(this->main_panel_admin_button);
 			this->main_panel->Controls->Add(this->main_panel_doctor_button);
+			this->main_panel->Controls->Add(this->complain_panel);
 			this->main_panel->Controls->Add(this->main_panel_patient_button);
-			this->main_panel->Location = System::Drawing::Point(2, 7);
+			this->main_panel->Location = System::Drawing::Point(846, 456);
 			this->main_panel->Name = L"main_panel";
 			this->main_panel->Size = System::Drawing::Size(420, 450);
 			this->main_panel->TabIndex = 13;
@@ -961,7 +962,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			// admin_panel
 			// 
 			this->admin_panel->Controls->Add(this->admin_panel_hire_doctor);
-			this->admin_panel->Location = System::Drawing::Point(0, 0);
+			this->admin_panel->Location = System::Drawing::Point(2, 463);
 			this->admin_panel->Name = L"admin_panel";
 			this->admin_panel->Size = System::Drawing::Size(420, 450);
 			this->admin_panel->TabIndex = 14;
@@ -979,7 +980,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			// doctor_panel
 			// 
 			this->doctor_panel->Controls->Add(this->doctor_panel_view_detail);
-			this->doctor_panel->Location = System::Drawing::Point(574, 5);
+			this->doctor_panel->Location = System::Drawing::Point(846, 0);
 			this->doctor_panel->Name = L"doctor_panel";
 			this->doctor_panel->Size = System::Drawing::Size(420, 450);
 			this->doctor_panel->TabIndex = 15;
@@ -996,11 +997,10 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			// MyForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
-			this->ClientSize = System::Drawing::Size(1238, 749);
+			this->ClientSize = System::Drawing::Size(1267, 749);
 			this->Controls->Add(this->doctor_panel);
 			this->Controls->Add(this->admin_panel);
 			this->Controls->Add(this->main_panel);
-			this->Controls->Add(this->complain_panel);
 			this->Controls->Add(this->view_detail_panel);
 			this->Controls->Add(this->patient_panel);
 			this->Controls->Add(this->forget_password_panel);
@@ -1073,7 +1073,6 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			login_panel_id_textbox->Text = "";
 			login_panel_password_textbox->Text = "";
 		}
-
 		private: System::Void signup_button_Click(System::Object^ sender, System::EventArgs^ e)
 		{
 			login_panel->Visible = false; // show the panel
@@ -1119,7 +1118,6 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			login_panel->Visible = false;
 			forget_password_panel->Visible = true;
 		}
-
 		private: System::Void forget_password_panel_back_button_Click(System::Object^ sender, System::EventArgs^ e)
 		{
 			login_panel->Visible = true;
@@ -1128,27 +1126,26 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 		private: System::Void forget_password_panel_enter_button_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			String^ id = forget_password_panel_id_textbox->Text;
-			String^ secutity_q = forget_password_panel_security_q_textbox->Text;
-			try 
+			String^ security_q = forget_password_panel_security_q_textbox->Text;
+			if (ismain_panel_patient_button == true)
 			{
-					String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
-					SqlConnection sqlConn(connString);
-					sqlConn.Open();
-					String^ sqlQuery = "SELECT password FROM [user] WHERE id=@id AND security_q=@security_q";
-					SqlCommand command(sqlQuery, % sqlConn);
-					command.Parameters->AddWithValue("@id", id);
-					command.Parameters->AddWithValue("@security_q", secutity_q);
-					SqlDataReader^ reader = command.ExecuteReader();
-					String^ password;
-					if (reader->Read()) {
-						password = reader->GetString(0);
-					}
-					MessageBox::Show("your password is \n" + password, "your password ", MessageBoxButtons::OK);
+				Patient^ patient = gcnew Patient();
+				patient->forget_passowrd(id, security_q);
 			}
-			catch (Exception^ ex)
+			else if (ismain_panel_doctor_button == true)
 			{
-				MessageBox::Show("Id or security question incorrect", "Forget password Failure", MessageBoxButtons::OK);
+				doctor^ ddoctor = gcnew doctor();
+				ddoctor->forget_passowrd(id, security_q);
 			}
+			else if (ismain_panel_admin_button == true)
+			{
+				
+				admin^ aadmin = gcnew admin();
+				aadmin->forget_passowrd(id, security_q);
+			}
+			forget_password_panel_id_textbox->Text="";
+			forget_password_panel_security_q_textbox->Text="";
+
 		}
 		private: System::Void login_panel_exit_Click(System::Object^ sender, System::EventArgs^ e) 
 		{

@@ -104,4 +104,29 @@ public:
 		}
 
 	}
+	void forget_passowrd(String^ i, String^ q)
+	{
+		try
+		{
+			id = i;
+			security_q = q;
+			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
+			String^ sqlQuery = "SELECT password FROM [user] WHERE id=@id AND security_q=@security_q";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@id", id);
+			command.Parameters->AddWithValue("@security_q", security_q);
+			SqlDataReader^ reader = command.ExecuteReader();
+			String^ password;
+			if (reader->Read()) {
+				password = reader->GetString(0);
+			}
+			MessageBox::Show("your password is \n" + password, "your password ", MessageBoxButtons::OK);
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("Id or security question incorrect", "Forget password Failure", MessageBoxButtons::OK);
+		}
+	}
 };
