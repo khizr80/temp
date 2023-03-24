@@ -193,6 +193,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 
 
 
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -828,7 +829,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			// view_detail_panel_first_name_label
 			// 
 			this->view_detail_panel_first_name_label->AutoSize = true;
-			this->view_detail_panel_first_name_label->Location = System::Drawing::Point(48, 30);
+			this->view_detail_panel_first_name_label->Location = System::Drawing::Point(48, 33);
 			this->view_detail_panel_first_name_label->Name = L"view_detail_panel_first_name_label";
 			this->view_detail_panel_first_name_label->Size = System::Drawing::Size(102, 22);
 			this->view_detail_panel_first_name_label->TabIndex = 25;
@@ -875,7 +876,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			this->complain_panel->Controls->Add(this->complain_panel_back_button);
 			this->complain_panel->Controls->Add(this->complain_panel_ok_button);
 			this->complain_panel->Controls->Add(this->complain_panel_textbox);
-			this->complain_panel->Location = System::Drawing::Point(3, 7);
+			this->complain_panel->Location = System::Drawing::Point(854, 463);
 			this->complain_panel->Name = L"complain_panel";
 			this->complain_panel->Size = System::Drawing::Size(232, 327);
 			this->complain_panel->TabIndex = 12;
@@ -912,9 +913,8 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			this->main_panel->Controls->Add(this->main_panel_exit_button);
 			this->main_panel->Controls->Add(this->main_panel_admin_button);
 			this->main_panel->Controls->Add(this->main_panel_doctor_button);
-			this->main_panel->Controls->Add(this->complain_panel);
 			this->main_panel->Controls->Add(this->main_panel_patient_button);
-			this->main_panel->Location = System::Drawing::Point(846, 456);
+			this->main_panel->Location = System::Drawing::Point(0, 0);
 			this->main_panel->Name = L"main_panel";
 			this->main_panel->Size = System::Drawing::Size(420, 450);
 			this->main_panel->TabIndex = 13;
@@ -962,7 +962,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			// admin_panel
 			// 
 			this->admin_panel->Controls->Add(this->admin_panel_hire_doctor);
-			this->admin_panel->Location = System::Drawing::Point(2, 463);
+			this->admin_panel->Location = System::Drawing::Point(2, 458);
 			this->admin_panel->Name = L"admin_panel";
 			this->admin_panel->Size = System::Drawing::Size(420, 450);
 			this->admin_panel->TabIndex = 14;
@@ -997,10 +997,11 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			// MyForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
-			this->ClientSize = System::Drawing::Size(1267, 749);
+			this->ClientSize = System::Drawing::Size(1302, 749);
 			this->Controls->Add(this->doctor_panel);
 			this->Controls->Add(this->admin_panel);
 			this->Controls->Add(this->main_panel);
+			this->Controls->Add(this->complain_panel);
 			this->Controls->Add(this->view_detail_panel);
 			this->Controls->Add(this->patient_panel);
 			this->Controls->Add(this->forget_password_panel);
@@ -1030,7 +1031,9 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 #pragma endregion
 	public:
 		Patient^ user;
-
+		bool ismain_panel_patient_button = false;
+		bool ismain_panel_admin_button = false;
+		bool ismain_panel_doctor_button = false;
 		private: System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e)
 		{
 
@@ -1056,6 +1059,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 				{
 					login_panel->Visible = false; // show the panel
 					doctor_panel->Visible = true; // hide the panel
+					login_panel_signup_button->Visible = true;
 				}
 				
 			}
@@ -1068,10 +1072,12 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 
 					login_panel->Visible = false; // show the panel
 					admin_panel->Visible = true; // hide the panel
+					login_panel_signup_button->Visible = true;
 				}
 			}
 			login_panel_id_textbox->Text = "";
 			login_panel_password_textbox->Text = "";
+			
 		}
 		private: System::Void signup_button_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -1154,13 +1160,14 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 			ismain_panel_admin_button = false;
 			ismain_panel_doctor_button = false;
 			ismain_panel_patient_button = false;
+			login_panel_signup_button->Visible = true;
 		}
 		private: System::Void patient_panel_logout_button_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			login_panel->Visible = true; // show the panel
 			patient_panel->Visible = false; // hide the panel
 		}
-	private: System::Void patient_panel_view_detail_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		private: System::Void patient_panel_view_detail_button_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
 		view_detail_panel->Visible = true; // show the panel
 		patient_panel->Visible = false; // hide the panel
@@ -1175,65 +1182,64 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 		view_detail_security_q_textbox->Text = user->security_q;
 
 	}
-private: System::Void view_detail_panel_back_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		private: System::Void view_detail_panel_back_button_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	view_detail_panel->Visible = false; // show the panel
 	patient_panel->Visible = true; // hide the panel
 }
-private: System::Void view_detail_panel_change_button_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	String^ first_name = view_detail_panel_first_name_textbox->Text;
-	String^ last_name = view_detail_panel_last_name_textbox->Text;
-	String^ id = view_detail_panel_id_textbox->Text;
-	String^ insurance_no = view_detail_panel_insurance_no_textbox->Text;
-	String^ age = view_detail_panel_age_textbox->Text;
-	String^ phone = view_detail_panel_phone_no_textbox->Text;
-	String^ password = view_detail_panel_password_textbox->Text;
-	//String^ confirmPassword = view_detail_panel_confirm_password_textbox->Text;
-	String^ secutity_q = view_detail_security_q_textbox->Text;
+		private: System::Void view_detail_panel_change_button_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			String^ first_name = view_detail_panel_first_name_textbox->Text;
+			String^ last_name = view_detail_panel_last_name_textbox->Text;
+			String^ id = view_detail_panel_id_textbox->Text;
+			String^ insurance_no = view_detail_panel_insurance_no_textbox->Text;
+			String^ age = view_detail_panel_age_textbox->Text;
+			String^ phone = view_detail_panel_phone_no_textbox->Text;
+			String^ password = view_detail_panel_password_textbox->Text;
+			String^ secutity_q = view_detail_security_q_textbox->Text;
 
-	if (first_name->Length == 0 || last_name->Length == 0 || phone->Length == 0 || id->Length == 0
-		|| password->Length == 0 || insurance_no->Length == 0 || age->Length == 0 )
-	{
+			if (first_name->Length == 0 || last_name->Length == 0 || phone->Length == 0 || id->Length == 0
+				|| password->Length == 0 || insurance_no->Length == 0 || age->Length == 0 )
+			{
 
-		MessageBox::Show("Please enter all the fields", "One or more empty fields", MessageBoxButtons::OK);
-		return;
-	}
-	/*if (String::Compare(password, confirmPassword) != 0) {
-		MessageBox::Show("Password and Confirm Password do not match", "Password Error", MessageBoxButtons::OK);
-		return;
-	}*/
-	try {
-		String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
-		SqlConnection sqlConn(connString);
-		sqlConn.Open();
-		String^ sqlQuery = "UPDATE [user] SET first_name = @first_name, last_name = @last_name, insurance_no = @insurance_no, age = @age, phone_no = @phone_no, password = @password, security_q = @security_q WHERE id = @id";
-		SqlCommand command(sqlQuery, % sqlConn);
-		command.Parameters->AddWithValue("@id", id);
-		command.Parameters->AddWithValue("@first_name", first_name);
-		command.Parameters->AddWithValue("@last_name", last_name);
-		command.Parameters->AddWithValue("@insurance_no", insurance_no);
-		command.Parameters->AddWithValue("@age", age);
-		command.Parameters->AddWithValue("@phone_no", phone);
-		command.Parameters->AddWithValue("@password", password);
-		command.Parameters->AddWithValue("@security_q", secutity_q);
-		command.ExecuteNonQuery();
-		user = gcnew Patient;
-		user->id = id;
-		user->first_name = first_name;
-		user->last_name = last_name;
-		user->insurance_no = insurance_no;
-		user->age = age;
-		user->phone_no = phone;
-		user->password = password;
-		user->security_q = secutity_q;
-		MessageBox::Show("changed successfully", "change information", MessageBoxButtons::OK);
-	}
-	catch (Exception^ ex)
-	{
-		MessageBox::Show("Failed to register new user", "Register Failure", MessageBoxButtons::OK);
-	}
-}
+				MessageBox::Show("Please enter all the fields", "One or more empty fields", MessageBoxButtons::OK);
+				return;
+			}
+			/*if (String::Compare(password, confirmPassword) != 0) {
+				MessageBox::Show("Password and Confirm Password do not match", "Password Error", MessageBoxButtons::OK);
+				return;
+			}*/
+			try {
+				String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+				SqlConnection sqlConn(connString);
+				sqlConn.Open();
+				String^ sqlQuery = "UPDATE [user] SET first_name = @first_name, last_name = @last_name, insurance_no = @insurance_no, age = @age, phone_no = @phone_no, password = @password, security_q = @security_q WHERE id = @id";
+				SqlCommand command(sqlQuery, % sqlConn);
+				command.Parameters->AddWithValue("@id", id);
+				command.Parameters->AddWithValue("@first_name", first_name);
+				command.Parameters->AddWithValue("@last_name", last_name);
+				command.Parameters->AddWithValue("@insurance_no", insurance_no);
+				command.Parameters->AddWithValue("@age", age);
+				command.Parameters->AddWithValue("@phone_no", phone);
+				command.Parameters->AddWithValue("@password", password);
+				command.Parameters->AddWithValue("@security_q", secutity_q);
+				command.ExecuteNonQuery();
+				user = gcnew Patient;
+				user->id = id;
+				user->first_name = first_name;
+				user->last_name = last_name;
+				user->insurance_no = insurance_no;
+				user->age = age;
+				user->phone_no = phone;
+				user->password = password;
+				user->security_q = secutity_q;
+				MessageBox::Show("changed successfully", "change information", MessageBoxButtons::OK);
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show("Failed to register new user", "Register Failure", MessageBoxButtons::OK);
+			}
+		}
 private: System::Void patient_panel_complaint_button_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	complain_panel->Visible = true; // show the panel
@@ -1264,9 +1270,6 @@ private: System::Void complain_panel_back_button_Click(System::Object^ sender, S
 	complain_panel->Visible = false; // show the panel
 	patient_panel->Visible = true; // hide the panel
 }
-	   bool ismain_panel_patient_button = false;
-	   bool ismain_panel_admin_button = false;
-	   bool ismain_panel_doctor_button = false;
 private: System::Void main_panel_exit_button_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	this->Close();
@@ -1282,17 +1285,20 @@ private: System::Void main_panel_doctor_button_Click(System::Object^ sender, Sys
 	main_panel->Visible = false;
 	login_panel->Visible = true;
 	ismain_panel_doctor_button = true;
+	login_panel_signup_button->Visible = false;
 }
 private: System::Void main_panel_admin_button_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	main_panel->Visible = false;
 	login_panel->Visible = true;
 	ismain_panel_admin_button = true;
+	login_panel_signup_button->Visible = false;
 }
 
 private: System::Void admin_panel_hire_doctor_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 
 }
+
 };
 }
