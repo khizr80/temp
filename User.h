@@ -13,11 +13,12 @@ public:
 	String^ security_q;
 	String^ confirm_password;
 	String^ age;
+	String^ rr = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
 	bool complain(String^ x)
 	{
 		try {
 
-			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			String^ connString = rr;
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 			String^ sqlQuery = "INSERT INTO [complain] (complain) VALUES (@complain)";

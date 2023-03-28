@@ -64,7 +64,7 @@ public:
 		{
 			id = i;
 			security_q = q;
-			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			String^ connString = rr;
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 			String^ sqlQuery = "SELECT password FROM [doctor] WHERE id=@id AND security_q=@security_q";
@@ -99,7 +99,7 @@ public:
 			return 2;
 		}
 		try {
-			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			String^ connString = rr;
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 			String^ sqlQuery = "UPDATE [doctor] SET first_name = @first_name, last_name = @last_name, specialization = @specialization, age = @age, phone_no = @phone_no, password = @password, security_q = @security_q WHERE id = @id";

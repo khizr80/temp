@@ -82,7 +82,7 @@ public:
 			return;
 		}
 		try {
-			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			String^ connString = rr;
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 			String^ sqlQuery = "INSERT INTO [user] (first_name, last_name, id, insurance_no, age, phone_no, password,security_q) VALUES (@first_name, @last_name, @id, @insurance_no, @age, @phone_no, @password,@security_q)";
@@ -110,7 +110,7 @@ public:
 		{
 			id = i;
 			security_q = q;
-			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			String^ connString = rr;
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 			String^ sqlQuery = "SELECT password FROM [user] WHERE id=@id AND security_q=@security_q";
@@ -145,7 +145,7 @@ public:
 			return 2;
 		}
 		try {
-			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			String^ connString = rr;
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 			String^ sqlQuery = "UPDATE [user] SET first_name = @first_name, last_name = @last_name, insurance_no = @insurance_no, age = @age, phone_no = @phone_no, password = @password, security_q = @security_q WHERE id = @id";
