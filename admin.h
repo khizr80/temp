@@ -63,7 +63,7 @@ public:
 		{
 			id = i;
 			security_q = q;
-			String^ connString = "Data Source=DESKTOP-9T5F2B3;Initial Catalog=mono;Integrated Security=True";
+			String^ connString = rr;
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 			String^ sqlQuery = "SELECT password FROM [admin] WHERE id=@id AND security_q=@security_q";
