@@ -165,4 +165,22 @@ public:
 			MessageBox::Show("Failed to register new doctor", "Register Failure", MessageBoxButtons::OK);
 		}
 	}
+	bool firedoctor(String^ x)
+	{
+		try {
+
+			String^ connString = rr;
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
+			String^ sqlQuery = "DELETE FROM [doctor] WHERE id=@complain";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@complain", x);
+			command.ExecuteNonQuery();
+
+			return 1;
+		}
+		catch (Exception^ e) {
+			return 0;
+		}
+	}
 };

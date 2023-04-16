@@ -182,6 +182,7 @@ private: System::Windows::Forms::Button^ doctor_panel_view_detail;
 private: System::Windows::Forms::Button^ admin_panel_logout_button;
 private: System::Windows::Forms::Button^ doctor_panel_logout_button;
 private: System::Windows::Forms::Button^ doctor_panel_complain_button;
+private: System::Windows::Forms::Button^ admin_panel_fire_doctor;
 
 
 
@@ -289,6 +290,7 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 			this->doctor_panel_complain_button = (gcnew System::Windows::Forms::Button());
 			this->doctor_panel_logout_button = (gcnew System::Windows::Forms::Button());
 			this->doctor_panel_view_detail = (gcnew System::Windows::Forms::Button());
+			this->admin_panel_fire_doctor = (gcnew System::Windows::Forms::Button());
 			this->login_panel->SuspendLayout();
 			this->forget_password_panel->SuspendLayout();
 			this->signup_panel->SuspendLayout();
@@ -968,13 +970,13 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 			// 
 			// admin_panel
 			// 
+			this->admin_panel->Controls->Add(this->admin_panel_fire_doctor);
 			this->admin_panel->Controls->Add(this->admin_panel_logout_button);
 			this->admin_panel->Controls->Add(this->admin_panel_hire_doctor);
 			this->admin_panel->Location = System::Drawing::Point(2, 458);
 			this->admin_panel->Name = L"admin_panel";
 			this->admin_panel->Size = System::Drawing::Size(420, 450);
 			this->admin_panel->TabIndex = 14;
-			this->admin_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::admin_panel_Paint);
 			// 
 			// admin_panel_logout_button
 			// 
@@ -1035,6 +1037,16 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 			this->doctor_panel_view_detail->Text = L"view detail";
 			this->doctor_panel_view_detail->UseVisualStyleBackColor = true;
 			this->doctor_panel_view_detail->Click += gcnew System::EventHandler(this, &MyForm::doctor_panel_view_detail_Click);
+			// 
+			// admin_panel_fire_doctor
+			// 
+			this->admin_panel_fire_doctor->Location = System::Drawing::Point(15, 97);
+			this->admin_panel_fire_doctor->Name = L"admin_panel_fire_doctor";
+			this->admin_panel_fire_doctor->Size = System::Drawing::Size(122, 42);
+			this->admin_panel_fire_doctor->TabIndex = 14;
+			this->admin_panel_fire_doctor->Text = L"Fire Doctor";
+			this->admin_panel_fire_doctor->UseVisualStyleBackColor = true;
+			this->admin_panel_fire_doctor->Click += gcnew System::EventHandler(this, &MyForm::admin_panel_fire_doctor_Click);
 			// 
 			// MyForm
 			// 
@@ -1304,18 +1316,37 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 		}
 		private: System::Void complain_panel_ok_button_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			String^ y = "NULL";
-			y = complain_panel_textbox->Text;
-			Patient^ x = gcnew Patient();
-			bool d= x->complain(y);
-			if (d == 1)
+			if (ismain_panel_admin_button == 1)
 			{
-				MessageBox::Show("Success", "Complain enter", MessageBoxButtons::OK);
-				complain_panel_textbox->Text="";
+				String^ y = "NULL";
+				y = complain_panel_textbox->Text;
+				doctor^ x = gcnew doctor();
+				bool d = x->firedoctor(y);
+				if (d == 1)
+				{
+					MessageBox::Show("Success", "Delete doctor", MessageBoxButtons::OK);
+					complain_panel_textbox->Text = "";
+				}
+				else
+				{
+					MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
+				}
 			}
 			else
 			{
-				MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
+				String^ y = "NULL";
+				y = complain_panel_textbox->Text;
+				Patient^ x = gcnew Patient();
+				bool d = x->complain(y);
+				if (d == 1)
+				{
+					MessageBox::Show("Success", "Complain enter", MessageBoxButtons::OK);
+					complain_panel_textbox->Text = "";
+				}
+				else
+				{
+					MessageBox::Show("Failed to connect to database", "Database Connection Error", MessageBoxButtons::OK);
+				}
 			}
 		}
 		private: System::Void complain_panel_back_button_Click(System::Object^ sender, System::EventArgs^ e)
@@ -1325,9 +1356,13 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 			{
 				patient_panel->Visible = true; // hide the panel
 			}
-			else
+			else if(ismain_panel_doctor_button==1)
 			{
 				doctor_panel->Visible = true; // hide the panel
+			}
+			else
+			{
+				admin_panel->Visible = true;
 			}
 		}
 		private: System::Void main_panel_exit_button_Click(System::Object^ sender, System::EventArgs^ e) 
@@ -1393,7 +1428,10 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 	view_detail_security_q_textbox->Text = userd->security_q;
 
 }
-	private: System::Void admin_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-	}
+		private: System::Void admin_panel_fire_doctor_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			complain_panel->Visible = true;
+			admin_panel->Visible = false;
+		}
 };
 }
