@@ -120,4 +120,49 @@ public:
 			return 1;
 		}
 	}
+	void hiredoctor(String^ i, String^ p, String^ f, String^ l, String^ in, String^ a, String^ ph, String^ se, String^ con)
+	{
+
+		id = i;
+		password = p;
+		first_name = f;
+		last_name = l;
+		specialization = in;
+		security_q = se;
+		age = a;
+		phone_no = ph;
+		confirm_password = con;
+		if (first_name->Length == 0 || last_name->Length == 0 || phone_no->Length == 0 || id->Length == 0
+			|| password->Length == 0 || specialization->Length == 0 || age->Length == 0 || confirm_password->Length == 0)
+		{
+
+			MessageBox::Show("Please enter all the fields", "One or more empty fields", MessageBoxButtons::OK);
+			return;
+		}
+		if (String::Compare(password, confirm_password) != 0) {
+			MessageBox::Show("Password and Confirm Password do not match", "Password Error", MessageBoxButtons::OK);
+			return;
+		}
+		try {
+			String^ connString = rr;
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
+			String^ sqlQuery = "INSERT INTO [doctor] (first_name, last_name, id, specialization, age, phone_no, password,security_q) VALUES (@first_name, @last_name, @id, @specialization, @age, @phone_no, @password,@security_q)";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@id", id);
+			command.Parameters->AddWithValue("@first_name", first_name);
+			command.Parameters->AddWithValue("@last_name", last_name);
+			command.Parameters->AddWithValue("@specialization", specialization);
+			command.Parameters->AddWithValue("@age", age);
+			command.Parameters->AddWithValue("@phone_no", phone_no);
+			command.Parameters->AddWithValue("@password", password);
+			command.Parameters->AddWithValue("@security_q", security_q);
+			command.ExecuteNonQuery();
+			MessageBox::Show("Doctor hired successfully", "Register Doctor", MessageBoxButtons::OK);
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("Failed to register new doctor", "Register Failure", MessageBoxButtons::OK);
+		}
+	}
 };

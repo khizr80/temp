@@ -974,6 +974,7 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 			this->admin_panel->Name = L"admin_panel";
 			this->admin_panel->Size = System::Drawing::Size(420, 450);
 			this->admin_panel->TabIndex = 14;
+			this->admin_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::admin_panel_Paint);
 			// 
 			// admin_panel_logout_button
 			// 
@@ -1233,26 +1234,45 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 		view_detail_panel->Visible = false; // show the panel
 		patient_panel->Visible = true; // hide the panel 
 	}
-	else
+	else if(ismain_panel_doctor_button==1)
 	{
 		view_detail_panel->Visible = false; // show the panel
 		doctor_panel->Visible = true; // hide the panel
+	}
+	else
+	{
+		view_detail_panel->Visible = false; // show the panel
+		admin_panel->Visible = true;
+		this->view_detail_panel_change_button->Text = L"Change";
+		view_detail_panel_id_textbox->Enabled = false;
 	}
 	
 }
 		private: System::Void view_detail_panel_change_button_Click(System::Object^ sender, System::EventArgs^ e)
 		{
+			String^ f = view_detail_panel_first_name_textbox->Text;
+			String^ l = view_detail_panel_last_name_textbox->Text;
+			String^ id = view_detail_panel_id_textbox->Text;
+			String^ in = view_detail_panel_insurance_no_textbox->Text;
+			String^ a = view_detail_panel_age_textbox->Text;
+			String^ ph = view_detail_panel_phone_no_textbox->Text;
+			String^ p = view_detail_panel_password_textbox->Text;
+			String^ se = view_detail_security_q_textbox->Text;
+			String^ con = view_detail_panel_password_textbox->Text;
 			if (ismain_panel_patient_button == 1)
 			{
-				String^ f = view_detail_panel_first_name_textbox->Text;
-				String^ l = view_detail_panel_last_name_textbox->Text;
-				String^ id = view_detail_panel_id_textbox->Text;
-				String^ in = view_detail_panel_insurance_no_textbox->Text;
-				String^ a = view_detail_panel_age_textbox->Text;
-				String^ ph = view_detail_panel_phone_no_textbox->Text;
-				String^ p = view_detail_panel_password_textbox->Text;
-				String^ se = view_detail_security_q_textbox->Text;
 				int x = userp->change_detail(f, l, id, p, in, se, a, ph);
+				if (x == 2)
+					MessageBox::Show("Please enter all the fields", "One or more empty fields", MessageBoxButtons::OK);
+				else if (x == 0)
+					MessageBox::Show("changed successfully", "change information", MessageBoxButtons::OK);
+				else
+					MessageBox::Show("Failed to register new user", "Register Failure", MessageBoxButtons::OK);
+			}
+			else if(ismain_panel_doctor_button == 1)
+			{
+
+				int x = userd->change_detail(f, l, id, p, in, se,a, ph);
 				if (x == 2)
 					MessageBox::Show("Please enter all the fields", "One or more empty fields", MessageBoxButtons::OK);
 				else if (x == 0)
@@ -1262,21 +1282,17 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 			}
 			else
 			{
-				String^ f = view_detail_panel_first_name_textbox->Text;
-				String^ l = view_detail_panel_last_name_textbox->Text;
-				String^ id = view_detail_panel_id_textbox->Text;
-				String^ in = view_detail_panel_insurance_no_textbox->Text;
-				String^ a = view_detail_panel_age_textbox->Text;
-				String^ ph = view_detail_panel_phone_no_textbox->Text;
-				String^ p = view_detail_panel_password_textbox->Text;
-				String^ se = view_detail_security_q_textbox->Text;
-				int x = userd->change_detail(f, l, id, p, in, se,a, ph);
-				if (x == 2)
-					MessageBox::Show("Please enter all the fields", "One or more empty fields", MessageBoxButtons::OK);
-				else if (x == 0)
-					MessageBox::Show("changed successfully", "change information", MessageBoxButtons::OK);
-				else
-					MessageBox::Show("Failed to register new user", "Register Failure", MessageBoxButtons::OK);
+				doctor^ x = gcnew doctor();
+				x->hiredoctor(id, p, f, l, in, a, ph, se, con);
+				view_detail_panel_first_name_textbox->Text="";
+				view_detail_panel_last_name_textbox->Text = "";
+				view_detail_panel_id_textbox->Text = "";
+				view_detail_panel_insurance_no_textbox->Text = "";
+				view_detail_panel_age_textbox->Text = "";
+				view_detail_panel_phone_no_textbox->Text = "";
+				view_detail_panel_password_textbox->Text = "";
+				view_detail_security_q_textbox->Text = "";
+
 			}
 		}
 		private: System::Void patient_panel_complaint_button_Click(System::Object^ sender, System::EventArgs^ e)
@@ -1340,7 +1356,11 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 		}
 		private: System::Void admin_panel_hire_doctor_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-
+			view_detail_panel->Visible = true;
+			admin_panel->Visible = false;
+			view_detail_panel_insurance_no_label->Text = L"specialization";
+			view_detail_panel_change_button->Text = L"Hire";
+			view_detail_panel_id_textbox->Enabled=true;
 		}
 		private: System::Void doctor_panel_logout_button_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
@@ -1373,5 +1393,7 @@ private: System::Windows::Forms::Button^ doctor_panel_complain_button;
 	view_detail_security_q_textbox->Text = userd->security_q;
 
 }
-	};
+	private: System::Void admin_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+	}
+};
 }
